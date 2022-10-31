@@ -18,9 +18,9 @@ jobs:
         id: reponame
         run: |
           if [ "${DOCKER_REPO}" != "" ]; then
-            echo ::set-output name=DOCKER_REPO::${DOCKER_REPO}
+            echo "DOCKER_REPO=${DOCKER_REPO}" >> $GITHUB_OUTPUT
           else
-            echo ::set-output name=DOCKER_REPO::${{ github.repository }}
+            echo "DOCKER_REPO=${{ github.repository }}" >> $GITHUB_OUTPUT
           fi
         env:
           DOCKER_REPO: "${{ secrets.DOCKER_REPO }}"
@@ -47,8 +47,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push master as latest
-        if: github.ref == 'refs/heads/master'
+      - name: Build and push main as latest
+        if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -58,7 +58,7 @@ jobs:
           tags: mwader/postfix-relay:latest
           labels: ${{ steps.docker_meta.outputs.labels }}
       - name: Build and push branch or test PR
-        if: github.ref != 'refs/heads/master'
+        if: github.ref != 'refs/heads/main'
         uses: docker/build-push-action@v2
         with:
           context: .
