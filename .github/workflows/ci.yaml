@@ -20,7 +20,7 @@ jobs:
           if [ "${DOCKER_REPO}" != "" ]; then
             echo "DOCKER_REPO=${DOCKER_REPO}" >> $GITHUB_OUTPUT
           else
-            echo "DOCKER_REPO=${{ github.repository }}" >> $GITHUB_OUTPUT
+            echo "DOCKER_REPO=cr1cr1/${{ github.repository }}" >> $GITHUB_OUTPUT
           fi
         env:
           DOCKER_REPO: "${{ secrets.DOCKER_REPO }}"
@@ -30,11 +30,11 @@ jobs:
         with:
           images: ${{ steps.reponame.outputs.DOCKER_REPO }} # list of Docker images to use as base name for tags
           tags: |
+            type=ref,event=tag
             type=ref,event=branch
             type=semver,pattern={{major}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{version}}
-            type=sha
           flavor: |
             latest=false
       - name: Set up QEMU
@@ -55,7 +55,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
           push: true
-          tags: cr1cr1/dovecot:latest
+          tags: ${{ steps.reponame.outputs.DOCKER_REPO }}:latest
           labels: ${{ steps.docker_meta.outputs.labels }}
       - name: Build and push branch or test PR
         if: github.ref != 'refs/heads/main'
