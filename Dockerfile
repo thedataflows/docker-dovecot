@@ -9,14 +9,14 @@ ARG DEBIAN_FRONTEND=noninteractive
 ADD dovecot.gpg /etc/apt/trusted.gpg.d
 ADD dovecot.list /etc/apt/sources.list.d
 
-RUN apt-get -y update && apt-get -y install \
+RUN apt-get -y update && apt-get -y install --no-install-recommends \
   tini \
   dovecot-core \
   dovecot-gssapi \
   dovecot-imapd \
   dovecot-ldap \
   dovecot-lmtpd \
-  dovecot-lua \
+  dovecot-auth-lua \
   dovecot-managesieved \
   dovecot-mysql \
   dovecot-pgsql \
