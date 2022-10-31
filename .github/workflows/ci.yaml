@@ -55,7 +55,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
           push: true
-          tags: mwader/postfix-relay:latest
+          tags: cr1cr1/dovecot:latest
           labels: ${{ steps.docker_meta.outputs.labels }}
       - name: Build and push branch or test PR
         if: github.ref != 'refs/heads/main'
