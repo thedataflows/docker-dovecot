@@ -1,4 +1,4 @@
-FROM debian:11
+FROM debian:stable-20221024-slim
 
 LABEL org.opencontainers.image.authors="cloud@thedataflows.com"
 
@@ -47,4 +47,4 @@ ADD rsyslog.conf /etc/rsyslog.conf
 
 VOLUME ["/etc/dovecot", "/srv/mail"]
 ENTRYPOINT ["/bin/bash", "-xc"]
-CMD ["service dovecot start && rsyslogd -n"]
+CMD ["service dovecot start && rsyslogd -n && wait"]
