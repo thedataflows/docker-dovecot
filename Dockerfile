@@ -46,5 +46,5 @@ ADD dovecot.conf /etc/dovecot/dovecot.conf
 ADD rsyslog.conf /etc/rsyslog.conf
 
 VOLUME ["/etc/dovecot", "/srv/mail"]
-ENTRYPOINT ["/bin/bash", "-xc"]
-CMD ["service dovecot start && rsyslogd -n && wait"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["/bin/bash -xc 'rsyslogd -n && service dovecot start && wait"]
