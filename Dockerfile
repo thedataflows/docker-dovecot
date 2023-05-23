@@ -1,4 +1,4 @@
-FROM debian:stable-20230208-slim
+FROM debian:stable-20230522-slim
 
 LABEL org.opencontainers.image.authors="cloud@thedataflows.com"
 
