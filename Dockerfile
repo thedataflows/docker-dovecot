@@ -1,11 +1,11 @@
-FROM debian:stable-20230522-slim
+FROM debian:stable-20230919-slim
 
 LABEL org.opencontainers.image.authors="cloud@thedataflows.com"
 
 ENV container=docker \
     LC_ALL=C
 ARG DEBIAN_FRONTEND=noninteractive \
-    DOVECOT_RELEASE=2:2.3.20-3+debian11
+    DOVECOT_RELEASE=2:2.3.21-1+debian11
 
 RUN apt-get update && \
   apt-get -y install --no-install-recommends \
