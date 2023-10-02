@@ -10,6 +10,8 @@ ARG DEBIAN_FRONTEND=noninteractive \
 RUN apt-get update && \
   apt-get -y install --no-install-recommends \
     curl gpg ca-certificates ssl-cert rsyslog tini && \
+  ## Add olstable for libldap 2.4 dependency
+  echo "deb http://deb.debian.org/debian/ oldstable main" > /etc/apt/sources.list.d/oldstable.list && \
   curl https://repo.dovecot.org/DOVECOT-REPO-GPG | gpg --import || true && \
   gpg --export ED409DA1 > /etc/apt/trusted.gpg.d/dovecot.gpg && \
   echo "deb https://repo.dovecot.org/ce-2.3-latest/debian/bullseye bullseye main" > /etc/apt/sources.list.d/dovecot.list && \
